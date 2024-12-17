@@ -8,7 +8,7 @@ const BaseApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:7000/api/v1",
   }),
-  endpoints: (builder : any) => ({}),
+  endpoints: (_builder : any) => ({}),
 });
 
 export default BaseApi;

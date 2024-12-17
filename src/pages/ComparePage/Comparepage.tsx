@@ -1,8 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */ 
 import { useDispatch, useSelector } from "react-redux";
-import { removeProductFromComparison } from "../../Redux/feature/CompareSlice/CompareSlice";
-import CompareLogo from  '../../assets/Icon/Compare.png'
+import { removeProductFromComparison } from "../../Redux/feature/CompareSlice/CompareSlice"; 
 
 const Comparepage = () => {
    

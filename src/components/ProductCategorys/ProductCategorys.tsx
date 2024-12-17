@@ -16,7 +16,7 @@ const ProductCategories = () => {
       </div>
       <div className="grid grid-cols-9  flex-wrap justify-start gap-1 mt-2">
         {data?.data?.map((category: TCategory) => (
-          <Link>
+          <Link to={`/Collections/${category.name}`}>
           <div
             data-aos="flip-left"
             key={category.id}

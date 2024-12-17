@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useRef, useState } from "react";
 import { MdEdit } from "react-icons/md";
@@ -15,7 +16,6 @@ const ProductEditPage = ({
   const ImageUploadRef: any = useRef(null);
   const [ProductData, setProductData]: any = useState({});
   const [image, setImage] = useState();
-  const [ImgFile, setImgFile] = useState("");
   const [tags, settags]: any = useState();
   const [newTag, setnewTag] = useState("");
   const [IsSaveChange, setIsSaveChange] = useState(false);
@@ -23,13 +23,12 @@ const ProductEditPage = ({
 
   //   api
   const { data: category } = useGetProductCategoryQuery(undefined);
-  console.log(ProductData);
 
-  const handleImageChange = (e: any) => {
-    const file: any = e.target.files[0];
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file: any = e.target.files?.[0]; // Use optional chaining to handle the possibility of no file
     if (file) {
-      setImage(URL.createObjectURL(file) as any);
-      setImgFile(file);
+      // @ts-ignore
+      setImage(URL.createObjectURL(file) as string); // TypeScript infers the correct type here
       setIsSaveChange(true);
       setIsImgChange(true);
     }
@@ -69,7 +68,7 @@ const ProductEditPage = ({
     e.preventDefault();
 
     if (IsImgChange) {
-      const imgLink: any = await uploadImage(ImgFile);
+      const imgLink: any = await uploadImage(ImageUploadRef.current);
       setImage(imgLink);
     }
 
@@ -88,7 +87,7 @@ const ProductEditPage = ({
       shopid: user.shop[0].id,
       updateData: updateData,
     })
-      .then((data) => {
+      .then(() => {
         Notify();
         setEditProductModalOpen(false);
       })

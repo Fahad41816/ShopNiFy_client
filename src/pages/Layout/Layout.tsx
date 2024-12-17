@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Outlet } from "react-router";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer"; 
@@ -9,7 +10,7 @@ import { replaceCartWithNewProducts, retainCurrentCart } from "../../Redux/featu
 
 const Layout = () => {
   
-  const {cart} = useSelector(state => state)
+  const {cart} : any = useSelector(state => state)
   const dispatch = useDispatch()
  
 

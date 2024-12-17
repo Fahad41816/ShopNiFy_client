@@ -3,8 +3,7 @@ import { useState } from "react";
 import { CgMenuGridR } from "react-icons/cg";
 import { IoMdClose } from "react-icons/io";
 import { RiMenu3Line } from "react-icons/ri";
-import { TfiMenuAlt } from "react-icons/tfi";
-import { useGetProductCategoryQuery } from "../../Redux/feature/ProductCategory/ProductCategory";
+import { TfiMenuAlt } from "react-icons/tfi"; 
 const FilterSortsection = ({ handleFilterChange, status }: any) => {
   const [idFilterModelOpen, setidFilterModelOpen] = useState(false);
 
@@ -15,9 +14,7 @@ const FilterSortsection = ({ handleFilterChange, status }: any) => {
     if (option == "maxPrice") handleFilterChange("maxPrice", value);
   };
 
-  const { data } = useGetProductCategoryQuery(undefined);
-
-  console.log(data);
+  
 
   return (
     <section>
@@ -150,7 +147,7 @@ const FilterSortsection = ({ handleFilterChange, status }: any) => {
           <span className="text-gray-600 font-medium">Sort by:</span>
           <div className="flex items-center space-x-2">
             <select
-              onClick={(e) => handleChange("sort", e.target.value)}
+              onClick={(e : any) => handleChange("sort", e.target.value)}
               className="select select-bordered w-full max-w-xs h-4"
               defaultValue="A-Z"
             >

@@ -4,7 +4,7 @@ import { AiOutlineRetweet } from "react-icons/ai";
 import { FaRegHeart, FaStar } from "react-icons/fa";
 import { IoIosSearch } from "react-icons/io";
 import { IoBagOutline } from "react-icons/io5";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { AddProductToCart } from "../../Redux/feature/Cart/CartSlice"; 
 import { useCartAlertShow } from "../../context/CartAlertShowProvider/CartAlertShowProvider";
 import { Link } from "react-router";
@@ -29,7 +29,7 @@ const ProductCard = ({ pdt }: any) => {
     handleModalShow(Data);
   };
 
-  const { compare } = useSelector((state: any) => state);
+ 
 
   const handleCompare = async (Data: any) => {
      dispatch(addProductToCompare(Data));

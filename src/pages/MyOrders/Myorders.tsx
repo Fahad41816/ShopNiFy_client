@@ -178,7 +178,7 @@ const MyOrdersPage = () => {
                 </label>
                 <select
                   id="rating"
-                  onChange={e => setratting(e.target.value)}
+                  onChange={(e : any) => setratting(e.target.value)}
                  className="select select-bordered w-full rounded-none"
                 >
                   <option value="">Select rating</option>

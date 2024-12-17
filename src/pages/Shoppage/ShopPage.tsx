@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */ 
 import { useLoaderData } from "react-router";
 import { useGetSigleShopQuery } from "../../Redux/feature/shop/shopApi";
 import Loader from "../../components/UI/Loader";
