@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as React from "react";
 import "./HeroBanner.css";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 
 
@@ -13,7 +15,7 @@ const images = [
   "https://i.ibb.co.com/6Yc2gtM/Adobe-Stock-854821865-Preview.jpg",
 ];
 
-function Arrow(props) {
+function Arrow(props : any) {
   const disabled = props.disabled ? " arrow--disabled" : "";
   return (
     <svg
@@ -73,7 +75,7 @@ export default function App() {
             style={{ opacity: opacities[0] }}
           > 
           
-            <img className="w-full h-full" src={images[0]} />
+            <LazyLoadImage width={"100%"} height={500} effect="blur" className="w-full h-full" src={images[0]} />
             <div data-aos="zoom-in"  className="absolute top-0 w-full h-full flex flex-col items-start justify-start pt-36 pl-24">
                 <h1 className="w-[700px] text-6xl font-bold text-white"> Shop Smarter, Live Better –  Explore Our Latest Collection!</h1> 
             </div> 
@@ -84,7 +86,7 @@ export default function App() {
             className="fader__slide"
             style={{ opacity: opacities[1] }}
           > 
-            <img src={images[1]} />
+            <LazyLoadImage width={"100%"} height={500} effect="blur" src={images[1]} />
             <div data-aos="zoom-in"  className="absolute top-0 w-full h-full flex flex-col items-end justify-center">
                 <h1 className="w-[800px] text-6xl font-bold text-white">Gear Up for Excellence – Premium Products at Your Fingertips!</h1> 
                
@@ -95,7 +97,7 @@ export default function App() {
             className="fader__slide"
             style={{ opacity: opacities[2] }}
           > 
-            <img src={images[2]} />
+            <LazyLoadImage width={"100%"} height={500} effect="blur" src={images[2]} />
             <div data-aos="zoom-in"  className="absolute top-0 w-full h-full flex flex-col items-start justify-start pt-36 pl-24">
                 <h1 className="w-[700px] text-6xl font-bold text-white"> Custom Creations for Unique You – Start Designing Today</h1> 
             </div> 
@@ -105,7 +107,7 @@ export default function App() {
             className="fader__slide"
             style={{ opacity: opacities[3] }}
           > 
-            <img src={images[3]} />
+            <LazyLoadImage  width={"100%"} height={500} effect="blur" src={images[3]} />
             <div data-aos="zoom-in"  className="absolute top-0 w-full h-full flex flex-col items-center justify-center ">
                 <h1 className="w-[700px] text-6xl font-bold text-black">Elevate Your Everyday – Discover the New Look!</h1> 
             </div> 
@@ -118,12 +120,12 @@ export default function App() {
         <>
           <Arrow
             left
-            onClick={(e) => e.stopPropagation() || instanceRef.current?.prev()}
+            onClick={(e : any) => e.stopPropagation() || instanceRef.current?.prev()}
             disabled={currentSlide === 0}
           />
 
           <Arrow
-            onClick={(e) => e.stopPropagation() || instanceRef.current?.next()}
+            onClick={(e : any) => e.stopPropagation() || instanceRef.current?.next()}
             disabled={
               currentSlide ===
               instanceRef.current.track.details.slides.length - 1

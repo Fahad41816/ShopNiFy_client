@@ -1,12 +1,13 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import TopNav from "./TopNav";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import Logo from "../../assets/logo/logo.png";
 import {
-  FaBars,
   FaCamera,
   FaDesktop,
   FaGamepad,
   FaLaptop,
+  FaRegUser,
   FaSignInAlt,
   FaTimes,
   FaUserPlus,
@@ -15,9 +16,14 @@ import {
 import { AiFillAudio, AiOutlineRetweet } from "react-icons/ai";
 import { useState } from "react";
 import { IoIosPhonePortrait } from "react-icons/io";
-import { MdOutlineWatch } from "react-icons/md";
+import { MdDashboard, MdOutlineWatch } from "react-icons/md";
 import { IoTv } from "react-icons/io5";
 import { Link } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { LuBaggageClaim } from "react-icons/lu";
+import { GrView } from "react-icons/gr";
+import { CgLogOut } from "react-icons/cg";
+import { userLogout } from "../../Redux/feature/auth/authSlice";
 const Navbar = () => {
   const [IsCategoryMenuOpen, setIsCategoryMenuOpen] = useState(false);
 
@@ -27,6 +33,15 @@ const Navbar = () => {
     } else {
       setIsCategoryMenuOpen(true);
     }
+  };
+
+  const { user } = useSelector((state: any) => state?.auth);
+  const { cart, compare } = useSelector((state: any) => state);
+
+  const Dispatch = useDispatch();
+
+  const handleLogout = () => {
+    Dispatch(userLogout());
   };
 
   return (
@@ -111,33 +126,74 @@ const Navbar = () => {
                 />
               </svg>{" "}
             </div>
-            <ul
-              tabIndex={0}
-              className="dropdown-content menu bg-base-100  rounded-sm z-[1] w-52 p-2 -right-10 shadow"
-            >
-              {/* <FaSignOutAlt /> */}
-              <li className="border-b">
-                <Link to={"/Login"}>
-                  <FaSignInAlt /> Login
+            {!user && (
+              <ul
+                tabIndex={0}
+                className="dropdown-content menu bg-base-100  rounded-sm z-[1] w-52 p-2 -right-10 shadow"
+              >
+                {/* <FaSignOutAlt /> */}
+                <li className="border-b">
+                  <Link to={"/Login"}>
+                    <FaSignInAlt /> Login
+                  </Link>
+                </li>
+                <li>
+                  <Link to={"/Registration"}>
+                    <FaUserPlus /> Register
+                  </Link>
+                </li>
+              </ul>
+            )}
+
+            {user && (
+              <ul
+                tabIndex={0}
+                className="dropdown-content rounded-md menu bg-base-100   z-[1] w-52  -right-10 shadow"
+              >
+                {/* <FaSignOutAlt /> */}
+                <Link to={"/MyProfile"}>
+                  {" "}
+                  <div className="flex gap-2 items-center justify-start border-b p-2 cursor-pointer hover:bg-slate-50">
+                    <FaRegUser className="text-lg" /> My Profile
+                  </div>
                 </Link>
-              </li>
-              <li>
-                <Link to={"/Registration"}>
-                  <FaUserPlus /> Register
+                <Link to={"/MyOrder"}>
+                  <div className="flex gap-2 p-2 items-center justify-start border-b  cursor-pointer hover:bg-slate-50">
+                    <LuBaggageClaim className="text-lg" /> My Orders
+                  </div>
                 </Link>
-              </li>
-            </ul>
+                <Link to={"/ViewProduct"}>
+                  <div className="flex p-2 gap-2 items-center justify-start border-b  cursor-pointer hover:bg-slate-50">
+                    <GrView className="text-lg" /> Recent View Product
+                  </div>
+                </Link>
+                {user.role !== "user" && (
+                  <Link to={"/Dashboard"}>
+                    {" "}
+                    <div className=" flex gap-2 items-center justify-start border-b  p-2  cursor-pointer hover:bg-slate-50">
+                      <MdDashboard className="text-lg" /> Dashboard
+                    </div>
+                  </Link>
+                )}
+                <div
+                  onClick={handleLogout}
+                  className="flex gap-2 items-center justify-start    p-2 cursor-pointer text-red-400 hover:bg-red-100"
+                >
+                  <CgLogOut className="text-lg" /> Log Out
+                </div>
+              </ul>
+            )}
           </div>
 
           {/* compare  */}
           <div data-aos="zoom-in" className="indicator">
-            <Link to={'/Compares'}>
-            <span className="indicator-item badge badge-primary text-white">
-              0
-            </span>
-            <div className="grid h-8 w-8 place-items-center">
-              <AiOutlineRetweet className="text-2xl cursor-pointer" />
-            </div>
+            <Link to={"/Compares"}>
+              <span className="indicator-item badge badge-primary text-white">
+                {compare.comparisonData.length}
+              </span>
+              <div className="grid h-8 w-8 place-items-center">
+                <AiOutlineRetweet className="text-2xl cursor-pointer" />
+              </div>
             </Link>
           </div>
 
@@ -173,7 +229,7 @@ const Navbar = () => {
           <div data-aos="zoom-in" className="indicator">
             <Link to={"/Cart"}>
               <span className="indicator-item badge badge-primary text-white">
-                0
+                {cart?.cartData?.length}
               </span>
               <div className="grid h-8 w-8 place-items-center">
                 <svg
@@ -393,21 +449,31 @@ const Navbar = () => {
 
           {/* Manu Options  */}
           <div className="flex ml-32 gap-5 items-center justify-start">
-            <Link to={'/'}><div className="cursor-pointer hover:text-blue-300 hover:underline font-semibold">
-              HOME
-            </div></Link>
-            <Link to={'/Collections'}><div className="cursor-pointer hover:text-blue-300 hover:underline font-semibold">
-              ALL COLLECTIONS
-            </div></Link>
-            <Link to={'/Contact'}><div className="cursor-pointer hover:text-blue-300 hover:underline font-semibold">
-              CONTACT US
-            </div></Link>
-            <Link to={'/About'}><div className="cursor-pointer hover:text-blue-300 hover:underline font-semibold">
-              ABOUT US
-            </div></Link>
-            <div className="cursor-pointer hover:text-blue-300 hover:underline font-semibold">
-              SELLER PAGE
-            </div>
+            <Link to={"/"}>
+              <div className="cursor-pointer hover:text-blue-300 hover:underline font-semibold">
+                HOME
+              </div>
+            </Link>
+            <Link to={"/Collections"}>
+              <div className="cursor-pointer hover:text-blue-300 hover:underline font-semibold">
+                ALL COLLECTIONS
+              </div>
+            </Link>
+            <Link to={"/Contact"}>
+              <div className="cursor-pointer hover:text-blue-300 hover:underline font-semibold">
+                CONTACT US
+              </div>
+            </Link>
+            <Link to={"/About"}>
+              <div className="cursor-pointer hover:text-blue-300 hover:underline font-semibold">
+                ABOUT US
+              </div>
+            </Link>
+            <Link to={"/shops"}>
+              <div className="cursor-pointer hover:text-blue-300 hover:underline font-semibold">
+                SHOPS
+              </div>
+            </Link>
             <div className="cursor-pointer hover:text-blue-300 hover:underline font-semibold">
               MORE
             </div>
